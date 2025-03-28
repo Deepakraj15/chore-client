@@ -1,14 +1,15 @@
 import { Link } from "expo-router";
 import { View, Image, StyleSheet } from "react-native";
+import HomeIcon from "./svg/HomeIcon";
 
 const NavBar = () => {
   return (
       <View style={styles.container}>
         <Link href={"../pages/HomePage"}>
-            <Image source={require("../assets/images/home.png")} style={styles.icon} />
+        <HomeIcon size="xl" color="black" />
       </Link>
       <Link href={"../pages/LoginPage"}>
-        <Image source={require("../assets/images/community.png")} style={styles.icon} />
+       
         </Link>
     </View>
   );

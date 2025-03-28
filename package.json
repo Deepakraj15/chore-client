@@ -17,6 +17,7 @@
   "dependencies": {
     "@babel/runtime": "^7.15.4",
     "@expo/vector-icons": "^14.0.2",
+    "@gluestack-ui/icon": "^0.1.26",
     "@gluestack-ui/nativewind-utils": "^1.0.26",
     "@gluestack-ui/overlay": "^0.1.22",
     "@gluestack-ui/toast": "^1.0.9",

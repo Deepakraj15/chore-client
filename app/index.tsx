@@ -1,14 +1,12 @@
+import { View, TouchableOpacity, Text } from "react-native";
 import { Link } from "expo-router";
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import "@/global.css";
 
 export default function Index() {
   return (
-    <View className="w-10 h-10 bg-blue-500" >
+    <View style={{ width: 100, height: 40, backgroundColor: "blue", justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity>
-        <Link href="../pages/HomePage" style={{ fontSize: 18, color: "blue" }}>
-          <Text>Go to Home</Text>
+        <Link href="./pages/home">
+          <Text style={{ color: "white" }}>Go to Home</Text>
         </Link>
       </TouchableOpacity>
     </View>

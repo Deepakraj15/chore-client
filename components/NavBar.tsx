@@ -8,7 +8,6 @@ const navItems = [
   { icon: GlobeIcon, route: "/pages/HomePage" },
   { icon: SearchIcon, route: "/pages/ExplorePage" },
   { icon: AddIcon, route: "/pages/HomePage" },
-  { icon: SettingsIcon, route: "/pages/SettingsPage" },
   { icon: ProfileIcon, route: "/pages/ProfilePage" },
 ];
 

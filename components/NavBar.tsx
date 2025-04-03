@@ -7,7 +7,7 @@ import ProfileIcon from "./svg/ProfileIcon";
 const navItems = [
   { icon: GlobeIcon, route: "/pages/HomePage" },
   { icon: SearchIcon, route: "/pages/ExplorePage" },
-  { icon: AddIcon, route: "/pages/HomePage" },
+  { icon: AddIcon, route: "/pages/AddPostPage" },
   { icon: ProfileIcon, route: "/pages/ProfilePage" },
 ];
 
@@ -15,7 +15,7 @@ const NavBar = () => {
   return (
     <SafeAreaView style={styles.container}>
       {navItems.map(({ icon: IconComponent, route }, index) => (
-        <Link key={index} href={route as  any} asChild>
+        <Link key={index} href={route as any} asChild>
           <Pressable style={styles.iconWrapper}>
             <IconComponent style={styles.icon} fill="none" />
           </Pressable>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   iconWrapper: {
-    padding: 10, 
+    padding: 10,
   },
   icon: {
     width: 24,

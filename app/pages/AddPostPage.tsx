@@ -1,10 +1,10 @@
-import { Text,View } from "react-native";
+import { Text, View } from "react-native";
 
-const AddIconPage = () =>{
-     return (
+const AddPostPage = () => {
+  return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>You are in Explore Page</Text>
     </View>
   );
 }
-export default AddIconPage;
+export default AddPostPage;

@@ -1,17 +1,28 @@
 import { Link } from "expo-router";
-import { View, Image, StyleSheet } from "react-native";
-import HomeIcon from "./svg/HomeIcon";
+import { View, StyleSheet, Pressable } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { AddIcon, GlobeIcon, SearchIcon, SettingsIcon } from "./ui/icon";
+import ProfileIcon from "./svg/ProfileIcon";
+
+const navItems = [
+  { icon: GlobeIcon, route: "/pages/HomePage" },
+  { icon: SearchIcon, route: "/pages/ExplorePage" },
+  { icon: AddIcon, route: "/pages/HomePage" },
+  { icon: SettingsIcon, route: "/pages/SettingsPage" },
+  { icon: ProfileIcon, route: "/pages/ProfilePage" },
+];
 
 const NavBar = () => {
   return (
-      <View style={styles.container}>
-        <Link href={"../pages/HomePage"}>
-        <HomeIcon size="xl" color="black" />
-      </Link>
-      <Link href={"../pages/LoginPage"}>
-       
+    <SafeAreaView style={styles.container}>
+      {navItems.map(({ icon: IconComponent, route }, index) => (
+        <Link key={index} href={route as  any} asChild>
+          <Pressable style={styles.iconWrapper}>
+            <IconComponent style={styles.icon} fill="none" />
+          </Pressable>
         </Link>
-    </View>
+      ))}
+    </SafeAreaView>
   );
 };
 
@@ -27,10 +38,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderTopWidth: 1,
     borderColor: "#ccc",
+    paddingBottom: 10,
+  },
+  iconWrapper: {
+    padding: 10, 
   },
   icon: {
     width: 24,
     height: 24,
+    color: "black",
   },
 });
 

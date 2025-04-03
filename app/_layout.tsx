@@ -1,16 +1,15 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
-import { Stack } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import NavBar from "@/components/NavBar";
-import { View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function Layout() {
   return (
-    <GluestackUIProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="pages/home" options={{ title: "Home" }} />
-        <Stack.Screen name="pages/login" options={{ title: "Login" }} />
-      </Stack>
-      <NavBar />
-    </GluestackUIProvider>
+    <SafeAreaProvider>
+      <GluestackUIProvider>
+        <Slot />
+        <NavBar/>
+      </GluestackUIProvider>
+    </SafeAreaProvider>
   );
 }

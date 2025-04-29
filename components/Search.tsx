@@ -8,7 +8,7 @@ const Search = () => {
 
   return (
     <Box className="w-full h-12 flex justify-center items-center">
-      <Input className="w-11/12 border-red-[100]" isFocused>
+      <Input className="w-11/12" isFocused>
         <InputSlot className="pl-2">
           <InputIcon as={SearchIcon} />
         </InputSlot>

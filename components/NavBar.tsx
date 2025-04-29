@@ -7,7 +7,7 @@ import ProfileIcon from "./svg/ProfileIcon";
 const navItems = [
   { icon: GlobeIcon, route: "/pages/HomePage" },
   { icon: SearchIcon, route: "/pages/ExplorePage" },
-  { icon: AddIcon, route: "/pages/AddPostPage" },
+  { icon: AddIcon, route: "/pages/CreatePage" },
   { icon: ProfileIcon, route: "/pages/ProfilePage" },
 ];
 

@@ -1,12 +1,11 @@
 import { Text, View } from "react-native";
 
-const Home = () =>{
+const Home = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>You are in home</Text>
+    <View className="flex-1 justify-center items-center">
+      <Text className="text-base">You are in home</Text>
     </View>
   );
-}
+};
 
 export default Home;
-

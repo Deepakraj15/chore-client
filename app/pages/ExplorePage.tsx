@@ -1,30 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { Box } from "@/components/ui/box";
-
-import { StyleSheet } from "react-native";
+import { View } from "react-native";
 import Search from "@/components/Search";
 
 const ExplorePage = () => {
     return (
         <SafeAreaProvider>
-            <SafeAreaView>
-                <Box style={exploreStyles.container}>
+            <SafeAreaView className="flex-1">
+                <View className="p-4">
                     <Search />
-                </Box>
+                </View>
             </SafeAreaView>
         </SafeAreaProvider>
     );
 };
-
-const exploreStyles = StyleSheet.create({
-    container: {
-        height: 50,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
-    }
-
-});
 
 export default ExplorePage;

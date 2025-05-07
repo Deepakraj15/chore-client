@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducers/rootReducer';
 import { authApi } from './services/authApiSlice'; // Adjust the path as needed
     
-const store = configureStore({
+export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(authApi.middleware),
@@ -10,4 +10,3 @@ const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export default store;

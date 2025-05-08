@@ -10,11 +10,11 @@ import AppLayout from "./AppLayout";
 export default function Layout() {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
+     
         <GluestackUIProvider>
           <AppLayout />
         </GluestackUIProvider>
-      </SafeAreaProvider>
+
     </Provider>
   );
 }

@@ -12,29 +12,31 @@ import GoogleIcon from "@/components/svg/GoogleIcon";
 import Register from "@/components/Register";
 import { useLoginMutation } from "@/store/services/authApiSlice";
 import Loader from "@/components/Loader";
-import { setAuthToken } from "@/store/slices/authSlice";
+import { setAuthMode, setAuthToken } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useRouter } from "expo-router";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [login, { isLoading, isError, error }] = useLoginMutation();
-  const togglePasswordVisibility = () => {
-    setShowPassword(prev => !prev);
-  };
-  const dipatch = useAppDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+  const togglePasswordVisibility = () => setShowPassword(prev => !prev);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  
+
+
   const handleLogin = async () => {
     try {
       const result = await login({ username, password }).unwrap();
       if (result.status === 200) {
-        dipatch(setAuthToken(result?.data?.authToken));
+        dispatch(setAuthToken(result?.data?.authToken));
       }
       console.log("Login successful:", result);
     } catch (err) {
       console.error("Login failed:", err);
     }
-
   };
 
   const handleGoogleLogin = () => {
@@ -42,18 +44,21 @@ const LoginPage = () => {
   };
 
   const handleSignUpRedirect = () => {
-    // Navigate to sign-up page or handle redirection
+    dispatch(setAuthMode("signUp"));
+    router.push("/pages/SignUpPage");
     console.log("Redirect to Sign Up");
   };
 
   return (
-    <Box className="w-full h-screen justify-center p-10 bg-white">
-      {isLoading ? <Loader /> :
+    <Box className="w-full h-screen justify-center p-10 bg-background-light dark:bg-background-dark">
+      {isLoading ? (
+        <Loader />
+      ) : (
         <FormControl className="p-4">
           <VStack space="xl">
             <VStack space="xs">
               <Register />
-              <Input className="min-w-[250px] border border-gray-300 border-[0.7px] py-3 px-3 font-bold text-left tracking-wide text-black-700 h-[40px]">
+              <Input className="min-w-[250px] border border-secondary dark:border-secondary bg-surface-light dark:bg-surface-dark h-[40px] px-3 py-3 text-text-base dark:text-text-inverted font-bold">
                 <InputField
                   value={username}
                   onChangeText={setUserName}
@@ -61,48 +66,49 @@ const LoginPage = () => {
                   keyboardType="default"
                   autoCapitalize="none"
                   autoCorrect={false}
-                  className="placeholder:italic placeholder:text-gray-300 placeholder:font-medium placeholder:tracking-wide" />
+                  className="text-text-base dark:text-text-inverted placeholder:italic placeholder:text-secondary dark:placeholder:text-text-muted placeholder:font-medium tracking-wide"
+                />
+
               </Input>
             </VStack>
 
             <VStack space="xs">
-            
-              <Input className="min-w-[250px] border border-gray-300 border-[0.7px] py-3 px-3 font-bold text-left tracking-wide text-black-700 h-[40px]">
+              <Input className="min-w-[250px] border border-secondary dark:border-secondary bg-surface-light dark:bg-surface-dark h-[40px] px-3 py-3 text-text-base dark:text-text-inverted font-bold">
                 <InputField
                   value={password}
                   onChangeText={setPassword}
                   placeholder="Password"
                   secureTextEntry={!showPassword}
-                  className="placeholder:italic placeholder:text-gray-300 placeholder:font-medium placeholder:tracking-wide"
+                  className="text-text-base dark:text-text-inverted placeholder:italic placeholder:text-secondary dark:placeholder:text-text-muted placeholder:font-medium tracking-wide"
                 />
+
                 <InputSlot className="pr-3" onPress={togglePasswordVisibility}>
                   <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
                 </InputSlot>
               </Input>
             </VStack>
 
-            <Button className="w-full bg-blue-500 h-[40px]" onPress={handleLogin}>
+            <Button className="w-full h-[40px] bg-primary dark:bg-primary" onPress={handleLogin}>
               <ButtonText className="text-white tracking-widest">Sign in</ButtonText>
             </Button>
 
-            <Divider className="my-1 border-t border-t-gray-300 border-t-[1px]" />
+            <Divider className="my-1 border-t border-secondary dark:border-t-secondary border-t-[1px]" />
 
-            <Button className="w-full h-[40px] bg-white border border-[0.5px]" onPress={handleGoogleLogin}>
-              <ButtonIcon as={GoogleIcon}></ButtonIcon>
-              <ButtonText className="text-typography-0">Sign in with Google</ButtonText>
+            <Button className="w-full h-[40px] bg-background-light dark:bg-surface-dark border border-secondary dark:border-secondary" onPress={handleGoogleLogin}>
+              <ButtonIcon as={GoogleIcon} />
+              <ButtonText className="text-text-base dark:text-text-base">Sign in with Google</ButtonText>
             </Button>
 
-            {/* Sign up prompt */}
             <HStack className="items-center pt-4 justify-center">
-              <Text className="text-typography-500 italic">Don't have an account?</Text>
+              <Text className="text-text-muted dark:text-text-muted italic">Don't have an account?</Text>
               <TouchableOpacity onPress={handleSignUpRedirect}>
-                <Text className="ml-2 text-blue-500 font-semibold ">Sign up</Text>
+                <Text className="ml-2 text-primary dark:text-primary font-semibold">Sign up</Text>
               </TouchableOpacity>
             </HStack>
           </VStack>
-      
-        </FormControl>}
-    </Box>   
+        </FormControl>
+      )}
+    </Box>
   );
 };
 

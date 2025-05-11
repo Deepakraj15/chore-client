@@ -1,20 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 import gluestackPlugin from "@gluestack-ui/nativewind-utils/tailwind-plugin";
+
 module.exports = {
-  // NOTE: Update this to include the paths to all of your component files.
   darkMode: "class",
-  content: ["./app/**/*.{js,jsx,ts,tsx}","./components/**/*.{js,jsx,ts,tsx}"],
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   safelist: [
-  {
-    pattern:
-      /(bg|border|text|stroke|fill)-(primary|secondary|tertiary|error|success|warning|info|typography|outline|background|indicator)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark|primary)/,
-  },
+    {
+      pattern:
+        /(bg|border|text|stroke|fill)-(primary|secondary|tertiary|error|success|warning|info|typography|outline|background|indicator)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark|primary)/,
+    },
   ],
   theme: {
     extend: {
       colors: {
-         primary: "#4169e1", // Royal Blue
+        primary: "#4169e1", // Royal Blue
         secondary: "#778899", // LightSlateGrey
 
         // Backgrounds
@@ -24,27 +24,29 @@ module.exports = {
           muted: "#f4f4f5", // light muted grey
         },
 
-        // Accent colors (optional)
+        // Accent colors
         accent: {
-          blue: "#3b82f6",    // Tailwind blue-500
-          green: "#10b981",   // Tailwind green-500
-          red: "#ef4444",     // Tailwind red-500
-          yellow: "#facc15",  // Tailwind yellow-400
+          blue: "#3b82f6", // Tailwind blue-500
+          green: "#10b981", // Tailwind green-500
+          red: "#ef4444", // Tailwind red-500
+          yellow: "#facc15", // Tailwind yellow-400
         },
 
         // Text colors
         text: {
-          base: "#1f2937",        // gray-800
-          muted: "#6b7280",       // gray-500
-          inverted: "#ffffff",    // white for dark bg
+          base: "#1f2937", // gray-800
+          muted: "#6b7280", // gray-500
+          inverted: "#ffffff", // white for dark bg
         },
-       
       },
       fontFamily: {
-        heading: undefined,
-        body: undefined,
-        mono: undefined,
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
         roboto: ['Roboto', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        display: ['Playfair Display', 'serif'],
       },
       fontWeight: {
         extrablack: '950',
@@ -66,4 +68,4 @@ module.exports = {
     },
   },
   plugins: [gluestackPlugin],
-}
+};

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
@@ -12,9 +12,10 @@ import GoogleIcon from "@/components/svg/GoogleIcon";
 import Register from "@/components/Register";
 import { useLoginMutation } from "@/store/services/authApiSlice";
 import Loader from "@/components/Loader";
-import { setAuthMode, setAuthToken } from "@/store/slices/authSlice";
+import { getIsAuthData, setAuthMode, setAuthStatus, setAuthToken } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useRouter } from "expo-router";
+import { useAppSelector } from "@/hooks/useAppSelector";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,16 +25,14 @@ const LoginPage = () => {
   const togglePasswordVisibility = () => setShowPassword(prev => !prev);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  
-
-
+  const isAuthenticated = useAppSelector(getIsAuthData);
   const handleLogin = async () => {
     try {
       const result = await login({ username, password }).unwrap();
-      if (result.status === 200) {
-        dispatch(setAuthToken(result?.data?.authToken));
-      }
       console.log("Login successful:", result);
+      dispatch(setAuthToken(result?.data?.authToken));
+      dispatch(setAuthStatus(true));
+
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -45,10 +44,14 @@ const LoginPage = () => {
 
   const handleSignUpRedirect = () => {
     dispatch(setAuthMode("signUp"));
-    router.push("/pages/SignUpPage");
+    router.replace("/pages/SignUpPage");
     console.log("Redirect to Sign Up");
   };
-
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/pages/HomePage");
+    }
+  }, [isAuthenticated, router])
   return (
     <Box className="w-full h-screen justify-center p-10 bg-background-light dark:bg-background-dark">
       {isLoading ? (
@@ -58,7 +61,7 @@ const LoginPage = () => {
           <VStack space="xl">
             <VStack space="xs">
               <Register />
-              <Input className="min-w-[250px] border border-secondary dark:border-secondary bg-surface-light dark:bg-surface-dark h-[40px] px-3 py-3 text-text-base dark:text-text-inverted font-bold">
+              <Input className="min-w-[250px] border border-secondary dark:border-secondary  bg-surface-light dark:bg-surface-dark h-[40px] px-3 py-3 text-text-base dark:text-text-inverted font-bold">
                 <InputField
                   value={username}
                   onChangeText={setUserName}
@@ -71,8 +74,8 @@ const LoginPage = () => {
 
               </Input>
             </VStack>
-
-            <VStack space="xs">
+            
+            <VStack space="sm">
               <Input className="min-w-[250px] border border-secondary dark:border-secondary bg-surface-light dark:bg-surface-dark h-[40px] px-3 py-3 text-text-base dark:text-text-inverted font-bold">
                 <InputField
                   value={password}
@@ -83,13 +86,21 @@ const LoginPage = () => {
                 />
 
                 <InputSlot className="pr-3" onPress={togglePasswordVisibility}>
-                  <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
+                  <InputIcon
+                    as={showPassword ? EyeIcon : EyeOffIcon}
+                    className="text-secondary dark:text-text-muted ml-2"
+                  />
                 </InputSlot>
-              </Input>
+                </Input>
+                <TouchableOpacity onPress={() => router.push("/pages/SignUpPage")}>
+                <Text className="text-right font-body dark:font-body text-sm text-primary dark:text-primary underline">
+                  Forgot password?
+                </Text>
+              </TouchableOpacity>
             </VStack>
 
             <Button className="w-full h-[40px] bg-primary dark:bg-primary" onPress={handleLogin}>
-              <ButtonText className="text-white tracking-widest">Sign in</ButtonText>
+                <ButtonText className="text-white tracking-widest ">Sign in</ButtonText>
             </Button>
 
             <Divider className="my-1 border-t border-secondary dark:border-t-secondary border-t-[1px]" />

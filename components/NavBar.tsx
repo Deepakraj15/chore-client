@@ -1,19 +1,20 @@
 import { Link } from "expo-router";
 import { View, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AddIcon, GlobeIcon, SearchIcon, SettingsIcon } from "./ui/icon";
-import ProfileIcon from "./svg/ProfileIcon";
-
+import { AddIcon, SearchIcon, SettingsIcon } from "./ui/icon";
+import { useColorScheme } from "react-native"
+import HomeIcon from "./svg/HomeIcon";
 const navItems = [
-  { icon: GlobeIcon, route: "/pages/HomePage" },
+  { icon: HomeIcon, route: "/pages/HomePage" },
   { icon: SearchIcon, route: "/pages/ExplorePage" },
   { icon: AddIcon, route: "/pages/CreatePage" },
-  { icon: ProfileIcon, route: "/pages/ProfilePage" },
+  { icon: SettingsIcon, route: "/pages/SettingsPage" },
 ];
 
 const NavBar = () => {
+  const colorScheme = useColorScheme();
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colorScheme === "dark" ? "black" : "#fff" }]}>
       {navItems.map(({ icon: IconComponent, route }, index) => (
         <Link key={index} href={route as any} asChild>
           <Pressable style={styles.iconWrapper}>
@@ -31,12 +32,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     height: 70,
-    backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    borderTopWidth: 1,
-    borderColor: "#ccc",
     paddingBottom: 10,
   },
   iconWrapper: {
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    color: "black",
+    color: "white"
   },
 });
 

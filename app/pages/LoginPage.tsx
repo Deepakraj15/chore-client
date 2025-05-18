@@ -16,6 +16,7 @@ import { getIsAuthData, setAuthMode, setAuthStatus, setAuthToken } from "@/store
 import { useAppDispatch } from "@/hooks/useAppDispatch";
 import { useRouter } from "expo-router";
 import { useAppSelector } from "@/hooks/useAppSelector";
+import { storeData } from "@/utils/AsyncStorageHelper";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,7 @@ const LoginPage = () => {
       console.log("Login successful:", result);
       dispatch(setAuthToken(result?.data?.authToken));
       dispatch(setAuthStatus(true));
-
+      storeData("username",username); // to store in local storage
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -52,6 +53,9 @@ const LoginPage = () => {
       router.replace("/pages/HomePage");
     }
   }, [isAuthenticated, router])
+  useEffect(()=>{
+    dispatch(setAuthMode("signIn"));
+  },[])
   return (
     <Box className="w-full h-screen justify-center p-10 bg-background-light dark:bg-background-dark">
       {isLoading ? (

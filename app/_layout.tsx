@@ -6,15 +6,12 @@ import "@/global.css";
 
 import AppLayout from "./AppLayout";
 
-
 export default function Layout() {
   return (
     <Provider store={store}>
-     
-        <GluestackUIProvider>
-          <AppLayout />
-        </GluestackUIProvider>
-
+      <GluestackUIProvider>
+        <AppLayout />
+      </GluestackUIProvider>
     </Provider>
   );
 }

@@ -20,8 +20,8 @@ module.exports = {
         // Backgrounds
         background: {
           light: "#ffffff",
-          dark: "#000000",
-          muted: "#f4f4f5", // light muted grey
+          dark: "#141414",
+          muted: "#f4f4f5",
         },
 
         // Accent colors
